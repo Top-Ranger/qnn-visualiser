@@ -21,6 +21,7 @@
 
 #include <QMainWindow>
 #include <QHash>
+#include "neuron.h"
 
 namespace Ui {
 class QNNVisualiser;
@@ -41,22 +42,9 @@ private slots:
     void on_actionAbout_triggered();
     void on_actionAbout_Qt_triggered();
 
+    void on_actionSave_Network_triggered();
+
 private:
-    struct neuron {
-        int id;
-        double x;
-        double y;
-        QHash<int, double> connections;
-
-        neuron() :
-            id(-1),
-            x(0.0d),
-            y(0.0d),
-            connections()
-        {
-        }
-    };
-
     void draw_nn(QHash<int, neuron> neuron_hash);
     void show_error_message(QString error);
 

@@ -25,6 +25,7 @@
 #include <QFile>
 #include <QXmlStreamReader>
 #include <QXmlStreamAttributes>
+#include <QPixmap>
 
 QNNVisualiser::QNNVisualiser(QWidget *parent) :
     QMainWindow(parent),
@@ -203,8 +204,7 @@ void QNNVisualiser::on_actionAbout_Qt_triggered()
 
 void QNNVisualiser::draw_nn(QHash<int, neuron> neuron_hash)
 {
-    // TODO: Implement
-    show_error_message(tr("Not implemented"));
+    ui->widget->set_neuron_hash(neuron_hash);
 }
 
 void QNNVisualiser::show_error_message(QString error)
@@ -215,3 +215,17 @@ void QNNVisualiser::show_error_message(QString error)
                          QString(tr("An error occured:\n%1")).arg(error));
 }
 
+
+void QNNVisualiser::on_actionSave_Network_triggered()
+{
+    QFileDialog dialog(this, tr("Save Network"), "", "PNG-image (*.png)");
+    dialog.setAcceptMode(QFileDialog::AcceptSave);
+    dialog.setDefaultSuffix("png");
+    if(dialog.exec() == QFileDialog::Accepted && dialog.selectedFiles()[0].length() > 0)
+    {
+        QPixmap::grabWidget(ui->widget).save(dialog.selectedFiles()[0]);
+        QMessageBox::information(this,
+                                 tr("Network saved"),
+                                 QString(tr("Network was successfully saved to %1")).arg(dialog.selectedFiles()[0]));
+    }
+}

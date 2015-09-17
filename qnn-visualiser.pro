@@ -13,9 +13,13 @@ TEMPLATE = app
 
 
 SOURCES += src/main.cpp\
-        src/qnnvisualiser.cpp
+        src/qnnvisualiser.cpp \
+    src/networkrenderer.cpp \
+    src/neuron.cpp
 
-HEADERS  += src/qnnvisualiser.h
+HEADERS  += src/qnnvisualiser.h \
+    src/networkrenderer.h \
+    src/neuron.h
 
 FORMS    += src/qnnvisualiser.ui
 
