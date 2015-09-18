@@ -49,6 +49,13 @@
     </widget>
    </item>
    <item>
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>Source gene:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QLineEdit" name="source_lineEdit">
@@ -65,6 +72,13 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>Target XML:</string>
+     </property>
+    </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
