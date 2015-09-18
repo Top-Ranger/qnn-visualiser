@@ -16,39 +16,40 @@
  * along with qnn-ui. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef QNNVISUALISER_H
-#define QNNVISUALISER_H
 
-#include <QMainWindow>
-#include <QHash>
-#include "neuron.h"
+#ifndef CREATEXML_H
+#define CREATEXML_H
+
+#include <QDialog>
+#include <QStringListModel>
 
 namespace Ui {
-class QNNVisualiser;
+class CreateXML;
 }
 
-class QNNVisualiser : public QMainWindow
+class CreateXML : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit QNNVisualiser(QWidget *parent = 0);
-    ~QNNVisualiser();
+    explicit CreateXML(QWidget *parent = 0);
+    ~CreateXML();    
 
 private slots:
+    void on_source_toolButton_clicked();
+
+    void on_target_toolButton_clicked();
+
     void on_pushButton_clicked();
-    void on_toolButton_clicked();
-    void on_actionQuit_triggered();
-    void on_actionAbout_triggered();
-    void on_actionAbout_Qt_triggered();
-    void on_actionSave_Network_triggered();
-    void on_actionCreate_XML_triggered();
 
 private:
-    void draw_nn(QHash<int, neuron> neuron_hash);
+    void check_button_enabled();
     void show_error_message(QString error);
 
-    Ui::QNNVisualiser *ui;
+    Ui::CreateXML *ui;
+
+    QStringListModel *_nn_model;
+    QStringListModel *_sim_model;
 };
 
-#endif // QNNVISUALISER_H
+#endif // CREATEXML_H

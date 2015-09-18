@@ -65,6 +65,7 @@
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="actionCreate_XML"/>
     <addaction name="actionSave_Network"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
@@ -86,6 +87,7 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionCreate_XML"/>
    <addaction name="actionSave_Network"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -113,6 +115,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionCreate_XML">
+   <property name="text">
+    <string>Create XML</string>
    </property>
   </action>
  </widget>

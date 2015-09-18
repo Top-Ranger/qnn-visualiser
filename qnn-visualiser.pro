@@ -15,13 +15,23 @@ TEMPLATE = app
 SOURCES += src/main.cpp\
         src/qnnvisualiser.cpp \
     src/networkrenderer.cpp \
-    src/neuron.cpp
+    src/neuron.cpp \
+    src/createxml.cpp
 
 HEADERS  += src/qnnvisualiser.h \
     src/networkrenderer.h \
-    src/neuron.h
+    src/neuron.h \
+    src/createxml.h
 
-FORMS    += src/qnnvisualiser.ui
+FORMS    += src/qnnvisualiser.ui \
+    src/createxml.ui
+
+unix: LIBS += -L$$PWD/../qnn/ -lqnn
+win32: LIBS += -L$$PWD/../qnn/ -lqnn0
+
+INCLUDEPATH += $$PWD/../qnn/src
+DEPENDPATH += $$PWD/../qnn/src
+
 
 OTHER_FILES += \
     LICENSE.GPL3

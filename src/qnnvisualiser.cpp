@@ -18,6 +18,7 @@
 
 #include "qnnvisualiser.h"
 #include "ui_qnnvisualiser.h"
+#include "createxml.h"
 
 #include <QDebug>
 #include <QMessageBox>
@@ -194,7 +195,7 @@ void QNNVisualiser::on_actionAbout_triggered()
 {
     QMessageBox::information(this,
                              tr("About qnn-visualiser"),
-                             tr("qnn-visualiser is a simple graphical interface to visualise some network types of qnn\nAuthor: Marcus Soll\nLicense: GPL3+"));
+                             tr("qnn-visualiser is a simple graphical interface to visualise some network types of qnn\nAuthor: Marcus Soll\nLicense: GPL3+\nThis program uses qnn, which is licensed under the LGPL3+"));
 }
 
 void QNNVisualiser::on_actionAbout_Qt_triggered()
@@ -228,4 +229,10 @@ void QNNVisualiser::on_actionSave_Network_triggered()
                                  tr("Network saved"),
                                  QString(tr("Network was successfully saved to %1")).arg(dialog.selectedFiles()[0]));
     }
+}
+
+void QNNVisualiser::on_actionCreate_XML_triggered()
+{
+    CreateXML window;
+    window.exec();
 }
