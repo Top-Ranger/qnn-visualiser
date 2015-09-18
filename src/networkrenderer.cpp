@@ -59,10 +59,14 @@ void NetworkRenderer::paintEvent(QPaintEvent *event)
         }
     }
 
-    painter.setPen(QPen(Qt::black));
+
 
     foreach (int i, _neuron_hash.keys())
     {
+        painter.setPen(QPen(Qt::black));
         painter.drawEllipse(size*_neuron_hash[i].x - 0.5d*NEURON_SIZE, size*_neuron_hash[i].y - 0.5d*NEURON_SIZE, NEURON_SIZE, NEURON_SIZE);
+        painter.setPen(QPen(Qt::white));
+        QRect rect(size*_neuron_hash[i].x - 0.5d * NEURON_SIZE, size*_neuron_hash[i].y - 0.5d * NEURON_SIZE, size*_neuron_hash[i].x + 0.5d * NEURON_SIZE, size*_neuron_hash[i].y + 0.5d * NEURON_SIZE);
+        painter.drawText(size*_neuron_hash[i].x - 0.5d * NEURON_SIZE, size*_neuron_hash[i].y - 0.5d * NEURON_SIZE, NEURON_SIZE, NEURON_SIZE, (int) Qt::AlignHCenter, QString("%1").arg(_neuron_hash[i].id), &rect);
     }
 }
