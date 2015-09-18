@@ -36,6 +36,7 @@
 CreateXML::CreateXML(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::CreateXML),
+    _values(new SelectModulatedValues(this)),
     _nn_model(NULL),
     _sim_model(NULL)
 {
@@ -63,6 +64,7 @@ CreateXML::CreateXML(QWidget *parent) :
 
 CreateXML::~CreateXML()
 {
+    delete _values;
     delete ui;
 }
 
@@ -161,7 +163,22 @@ void CreateXML::on_pushButton_clicked()
     }
     else if(selection == "ModulatedSpikingNeuronsNetwork")
     {
-        network = new ModulatedSpikingNeuronsNetwork(simulation->needInputLength(), simulation->needOutputLength());
+        ModulatedSpikingNeuronsNetwork::config config;
+        if(_values->exec() == _values->Accepted)
+        {
+            config.a_modulated = _values->a();
+            config.b_modulated = _values->b();
+            config.c_modulated = _values->c();
+            config.d_modulated = _values->d();
+        }
+        else
+        {
+            QMessageBox::information(this,
+                                 tr("Aborted"),
+                                 tr("Aborted"));
+            goto cleanup;
+        }
+        network = new ModulatedSpikingNeuronsNetwork(simulation->needInputLength(), simulation->needOutputLength(), config);
     }
     else
     {

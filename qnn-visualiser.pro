@@ -16,15 +16,18 @@ SOURCES += src/main.cpp\
         src/qnnvisualiser.cpp \
     src/networkrenderer.cpp \
     src/neuron.cpp \
-    src/createxml.cpp
+    src/createxml.cpp \
+    src/selectmodulatedvalues.cpp
 
 HEADERS  += src/qnnvisualiser.h \
     src/networkrenderer.h \
     src/neuron.h \
-    src/createxml.h
+    src/createxml.h \
+    src/selectmodulatedvalues.h
 
 FORMS    += src/qnnvisualiser.ui \
-    src/createxml.ui
+    src/createxml.ui \
+    src/selectmodulatedvalues.ui
 
 unix: LIBS += -L$$PWD/../qnn/ -lqnn
 win32: LIBS += -L$$PWD/../qnn/ -lqnn0

@@ -22,6 +22,7 @@
 
 #include <QDialog>
 #include <QStringListModel>
+#include "selectmodulatedvalues.h"
 
 namespace Ui {
 class CreateXML;
@@ -47,6 +48,7 @@ private:
     void show_error_message(QString error);
 
     Ui::CreateXML *ui;
+    SelectModulatedValues *_values;
 
     QStringListModel *_nn_model;
     QStringListModel *_sim_model;
