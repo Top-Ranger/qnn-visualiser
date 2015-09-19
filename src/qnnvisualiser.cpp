@@ -85,7 +85,7 @@ void QNNVisualiser::on_pushButton_clicked()
             }
             else if(reader.name() == "double")
             {
-                // Parse pos_x and pos_y
+                // Parse pos_x, pos_y and gas_radius
                 QXmlStreamAttributes attribute = reader.attributes();
                 if(!attribute.hasAttribute("key"))
                 {
@@ -99,6 +99,10 @@ void QNNVisualiser::on_pushButton_clicked()
                 else if(attribute.value("key") == "pos_y")
                 {
                     current_neuron.y = attribute.value("value").toString().toDouble();
+                }
+                else if(attribute.value("key") == "gas_radius")
+                {
+                    current_neuron.gas_radius = attribute.value("value").toString().toDouble();
                 }
             }
             else if(reader.name() == "neuron")

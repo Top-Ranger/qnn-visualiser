@@ -40,8 +40,18 @@ void NetworkRenderer::paintEvent(QPaintEvent *event)
 
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, true);
-    painter.setBrush(QBrush(Qt::SolidPattern));
+    painter.setBrush(QBrush(Qt::yellow));
 
+    // Draw gas radius
+    foreach (int i, _neuron_hash.keys())
+    {
+        painter.setPen(QPen(Qt::yellow));
+        painter.setBrush(QBrush(Qt::yellow));
+        double radius = size * _neuron_hash[i].gas_radius;
+        painter.drawEllipse(size*_neuron_hash[i].x - 0.5d*radius, size*_neuron_hash[i].y - 0.5d*radius, radius, radius);
+    }
+
+    // Draw connections
     // TODO: Arrows instead of lines
     foreach (int i, _neuron_hash.keys())
     {
@@ -60,10 +70,11 @@ void NetworkRenderer::paintEvent(QPaintEvent *event)
     }
 
 
-
+    // Draw neurons
     foreach (int i, _neuron_hash.keys())
     {
         painter.setPen(QPen(Qt::black));
+        painter.setBrush(QBrush(Qt::black));
         painter.drawEllipse(size*_neuron_hash[i].x - 0.5d*NEURON_SIZE, size*_neuron_hash[i].y - 0.5d*NEURON_SIZE, NEURON_SIZE, NEURON_SIZE);
         painter.setPen(QPen(Qt::white));
         QRect rect(size*_neuron_hash[i].x - 0.5d * NEURON_SIZE, size*_neuron_hash[i].y - 0.5d * NEURON_SIZE, size*_neuron_hash[i].x + 0.5d * NEURON_SIZE, size*_neuron_hash[i].y + 0.5d * NEURON_SIZE);

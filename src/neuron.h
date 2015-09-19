@@ -7,6 +7,7 @@ struct neuron {
     int id;
     double x;
     double y;
+    double gas_radius;
     QHash<int, double> connections;
 
     neuron();
