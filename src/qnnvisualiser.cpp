@@ -201,10 +201,6 @@ void QNNVisualiser::on_toolButton_clicked()
     {
         ui->lineEdit->setText(dialog.selectedFiles()[0]);
     }
-    else
-    {
-        ui->lineEdit->setText("");
-    }
     ui->pushButton->setEnabled(ui->lineEdit->text() != "");
 }
 
