@@ -105,6 +105,24 @@ void QNNVisualiser::on_pushButton_clicked()
                     current_neuron.gas_radius = attribute.value("value").toString().toDouble();
                 }
             }
+            else if(reader.name() == "QString")
+            {
+                QXmlStreamAttributes attribute = reader.attributes();
+                if(!attribute.hasAttribute("key"))
+                {
+                    show_error_message(tr("Not a valid file: key is missing for double"));
+                    goto cleanup;
+                }
+                if(attribute.value("key") == "gas_type")
+                {
+                    current_neuron.gas_emitting = attribute.value("value").toString() != "No gas";
+                }
+                else if(attribute.value("key") == "when_gas_emitting")
+                {
+                    // when_gas_emitting is always after gas_type
+                    current_neuron.gas_emitting = current_neuron.gas_emitting && (attribute.value("value").toString() != "Not emitting");
+                }
+            }
             else if(reader.name() == "neuron")
             {
                 current_neuron = neuron();

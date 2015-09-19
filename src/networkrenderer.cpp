@@ -36,6 +36,7 @@ void NetworkRenderer::paintEvent(QPaintEvent *event)
 {
     // It is not important why we repaint so we can ignore the event
     Q_UNUSED(event);
+
     double size = qMin(height(), width());
 
     QPainter painter(this);
@@ -45,10 +46,13 @@ void NetworkRenderer::paintEvent(QPaintEvent *event)
     // Draw gas radius
     foreach (int i, _neuron_hash.keys())
     {
-        painter.setPen(QPen(Qt::yellow));
-        painter.setBrush(QBrush(Qt::yellow));
-        double radius = size * _neuron_hash[i].gas_radius;
-        painter.drawEllipse(size*_neuron_hash[i].x - 0.5d*radius, size*_neuron_hash[i].y - 0.5d*radius, radius, radius);
+        if(_neuron_hash[i].gas_emitting)
+        {
+            painter.setPen(QPen(Qt::yellow));
+            painter.setBrush(QBrush(Qt::yellow));
+            double radius = size * _neuron_hash[i].gas_radius;
+            painter.drawEllipse(size*_neuron_hash[i].x - 0.5d*radius, size*_neuron_hash[i].y - 0.5d*radius, radius, radius);
+        }
     }
 
     // Draw connections

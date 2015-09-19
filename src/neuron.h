@@ -8,6 +8,7 @@ struct neuron {
     double x;
     double y;
     double gas_radius;
+    bool gas_emitting;
     QHash<int, double> connections;
 
     neuron();
