@@ -3,9 +3,12 @@
 #include <QPainter>
 #include <QPen>
 #include <QBrush>
+#include <QtCore/qmath.h>
 
 namespace {
 static const int NEURON_SIZE = 15;
+static const int ARROW_SIZE = 10;
+static const int RECURRENT_SIZE = 20;
 }
 
 NetworkRenderer::NetworkRenderer(QWidget *parent) :
@@ -56,7 +59,6 @@ void NetworkRenderer::paintEvent(QPaintEvent *event)
     }
 
     // Draw connections
-    // TODO: Arrows instead of lines
     foreach (int i, _neuron_hash.keys())
     {
         foreach (int source, _neuron_hash[i].connections.keys())
@@ -64,12 +66,30 @@ void NetworkRenderer::paintEvent(QPaintEvent *event)
             if(_neuron_hash[i].connections[source] > 0)
             {
                 painter.setPen(QPen(Qt::red));
+                painter.setBrush(QBrush(Qt::red));
             }
             else
             {
                 painter.setPen(QPen(Qt::blue));
+                painter.setBrush(QBrush(Qt::blue));
             }
-            painter.drawLine(size*_neuron_hash[source].x, size*_neuron_hash[source].y, size*_neuron_hash[i].x, size*_neuron_hash[i].y);
+
+            if(_neuron_hash[i].id == _neuron_hash[source].id)
+            {
+                painter.drawArc(size*_neuron_hash[i].x, size*_neuron_hash[i].y, RECURRENT_SIZE, RECURRENT_SIZE, 0, 5760);
+            }
+            else
+            {
+                double a = size*_neuron_hash[i].x - size*_neuron_hash[source].x;
+                double b = size*_neuron_hash[i].y - size*_neuron_hash[source].y;
+                double c = qSqrt(qPow(size*_neuron_hash[i].x - size*_neuron_hash[source].x, 2) + qPow(size*_neuron_hash[i].y - size*_neuron_hash[source].y, 2));
+                double n0_a = 1 / c * a;
+                double n0_b = 1 / c * b;
+                double x_arrow = n0_a * (c - 0.5d * NEURON_SIZE) + size*_neuron_hash[source].x - 0.5d * ARROW_SIZE;
+                double y_arrow = n0_b * (c - 0.5d * NEURON_SIZE) + size*_neuron_hash[source].y - 0.5d * ARROW_SIZE;
+                painter.drawLine(size*_neuron_hash[source].x, size*_neuron_hash[source].y, size*_neuron_hash[i].x, size*_neuron_hash[i].y);
+                painter.drawEllipse(x_arrow, y_arrow, ARROW_SIZE, ARROW_SIZE);
+            }
         }
     }
 
