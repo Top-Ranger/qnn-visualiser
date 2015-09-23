@@ -4,10 +4,12 @@
 #include <QPen>
 #include <QBrush>
 #include <QtCore/qmath.h>
+#include <QPolygon>
+#include <QPoint>
 
 namespace {
 static const int NEURON_SIZE = 15;
-static const int ARROW_SIZE = 10;
+static const int ARROW_SIZE = 7;
 static const int RECURRENT_SIZE = 20;
 }
 
@@ -85,10 +87,23 @@ void NetworkRenderer::paintEvent(QPaintEvent *event)
                 double c = qSqrt(qPow(size*_neuron_hash[i].x - size*_neuron_hash[source].x, 2) + qPow(size*_neuron_hash[i].y - size*_neuron_hash[source].y, 2));
                 double n0_a = 1 / c * a;
                 double n0_b = 1 / c * b;
-                double x_arrow = n0_a * (c - 0.5d * NEURON_SIZE) + size*_neuron_hash[source].x - 0.5d * ARROW_SIZE;
-                double y_arrow = n0_b * (c - 0.5d * NEURON_SIZE) + size*_neuron_hash[source].y - 0.5d * ARROW_SIZE;
+                double x_arrow = n0_a * (c - 0.5d * NEURON_SIZE) + size*_neuron_hash[source].x;
+                double y_arrow = n0_b * (c - 0.5d * NEURON_SIZE) + size*_neuron_hash[source].y;
+                double arrow_vektor_a = ARROW_SIZE;
+                double arrow_vektor_b = (-1) * ARROW_SIZE * (n0_a / n0_b);
                 painter.drawLine(size*_neuron_hash[source].x, size*_neuron_hash[source].y, size*_neuron_hash[i].x, size*_neuron_hash[i].y);
-                painter.drawEllipse(x_arrow, y_arrow, ARROW_SIZE, ARROW_SIZE);
+
+                // Scale arrow heads down
+                while(qAbs(arrow_vektor_b) > ARROW_SIZE)
+                {
+                    arrow_vektor_a /= 2;
+                    arrow_vektor_b /= 2;
+                }
+                QPolygon arrowhead;
+                arrowhead << QPoint(x_arrow, y_arrow);
+                arrowhead << QPoint(n0_a * (c - 0.5d * NEURON_SIZE - ARROW_SIZE) + size*_neuron_hash[source].x + arrow_vektor_a, n0_b * (c - 0.5d * NEURON_SIZE - ARROW_SIZE) + size*_neuron_hash[source].y + arrow_vektor_b);
+                arrowhead << QPoint(n0_a * (c - 0.5d * NEURON_SIZE - ARROW_SIZE) + size*_neuron_hash[source].x - arrow_vektor_a, n0_b * (c - 0.5d * NEURON_SIZE - ARROW_SIZE) + size*_neuron_hash[source].y - arrow_vektor_b);
+                painter.drawPolygon(arrowhead);
             }
         }
     }
