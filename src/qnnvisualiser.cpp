@@ -34,6 +34,7 @@ QNNVisualiser::QNNVisualiser(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->pushButton->setEnabled(false);
+    ui->actionVisualise_selected_Network->setEnabled(false);
 }
 
 QNNVisualiser::~QNNVisualiser()
@@ -202,6 +203,7 @@ void QNNVisualiser::on_toolButton_clicked()
         ui->lineEdit->setText(dialog.selectedFiles()[0]);
     }
     ui->pushButton->setEnabled(ui->lineEdit->text() != "");
+    ui->actionVisualise_selected_Network->setEnabled(ui->lineEdit->text() != "");
 }
 
 void QNNVisualiser::on_actionQuit_triggered()
