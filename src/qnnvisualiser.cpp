@@ -254,3 +254,9 @@ void QNNVisualiser::on_actionCreate_XML_triggered()
     CreateXML window;
     window.exec();
 }
+
+
+void QNNVisualiser::on_actionVisualise_selected_Network_triggered()
+{
+    on_pushButton_clicked();
+}

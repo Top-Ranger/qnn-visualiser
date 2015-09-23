@@ -66,6 +66,7 @@
      <string>File</string>
     </property>
     <addaction name="actionCreate_XML"/>
+    <addaction name="actionVisualise_selected_Network"/>
     <addaction name="actionSave_Network"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
@@ -120,6 +121,14 @@
   <action name="actionCreate_XML">
    <property name="text">
     <string>Create XML</string>
+   </property>
+  </action>
+  <action name="actionVisualise_selected_Network">
+   <property name="text">
+    <string>Visualise selected Network</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
    </property>
   </action>
  </widget>
