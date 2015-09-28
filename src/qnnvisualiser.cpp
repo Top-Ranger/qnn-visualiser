@@ -27,6 +27,7 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamAttributes>
 #include <QPixmap>
+#include <QDir>
 
 QNNVisualiser::QNNVisualiser(QWidget *parent) :
     QMainWindow(parent),
@@ -42,19 +43,20 @@ QNNVisualiser::~QNNVisualiser()
     delete ui;
 }
 
-void QNNVisualiser::on_pushButton_clicked()
+bool QNNVisualiser::parse_file(QString file_name)
 {
-    QString file_name = ui->lineEdit->text();
+    bool return_value = false;
+
     QFile file(file_name);
     if(!file.exists())
     {
         show_error_message(QString(tr("File %1 does not exists")).arg(file_name));
-        return;
+        return false;
     }
     if(!file.open(QFile::ReadOnly))
     {
         show_error_message(QString(tr("Can not open %1: %2")).arg(file_name).arg(file.errorString()));
-        return;
+        return false;
     }
 
     QXmlStreamReader reader(&file);
@@ -188,10 +190,17 @@ void QNNVisualiser::on_pushButton_clicked()
         }
     }
 
+    return_value = true;
     draw_nn(neuron_hash);
 
 cleanup:
     file.close();
+    return return_value;
+}
+
+void QNNVisualiser::on_pushButton_clicked()
+{
+    parse_file(ui->lineEdit->text());
 }
 
 void QNNVisualiser::on_toolButton_clicked()
@@ -260,5 +269,25 @@ void QNNVisualiser::on_actionCreate_XML_triggered()
 
 void QNNVisualiser::on_actionVisualise_selected_Network_triggered()
 {
-    on_pushButton_clicked();
+    parse_file(ui->lineEdit->text());
+}
+
+void QNNVisualiser::on_actionConvert_folder_triggered()
+{
+    QString folder_path = QFileDialog::getExistingDirectory(this, "Select folder", "");
+    if(folder_path != "")
+    {
+        QStringList filter;
+        QStringList files;
+        filter << "*.xml";
+        QDir dir(folder_path);
+        files = dir.entryList(filter);
+        foreach (QString file_name, files)
+        {
+            if(parse_file(dir.absoluteFilePath(file_name)))
+            {
+                QPixmap::grabWidget(ui->widget).save(dir.absoluteFilePath(file_name).replace(".xml", ".png"));
+            }
+        }
+    }
 }

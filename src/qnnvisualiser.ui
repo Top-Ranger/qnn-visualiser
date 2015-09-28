@@ -68,6 +68,7 @@
     <addaction name="actionCreate_XML"/>
     <addaction name="actionVisualise_selected_Network"/>
     <addaction name="actionSave_Network"/>
+    <addaction name="actionConvert_folder"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -90,6 +91,7 @@
    </attribute>
    <addaction name="actionCreate_XML"/>
    <addaction name="actionSave_Network"/>
+   <addaction name="actionConvert_folder"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionQuit">
@@ -129,6 +131,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+X</string>
+   </property>
+  </action>
+  <action name="actionConvert_folder">
+   <property name="text">
+    <string>Convert folder</string>
    </property>
   </action>
  </widget>

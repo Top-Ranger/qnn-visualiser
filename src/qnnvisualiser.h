@@ -36,6 +36,7 @@ public:
     ~QNNVisualiser();
 
 private slots:
+    bool parse_file(QString file_name);
     void on_pushButton_clicked();
     void on_toolButton_clicked();
     void on_actionQuit_triggered();
@@ -44,6 +45,7 @@ private slots:
     void on_actionSave_Network_triggered();
     void on_actionCreate_XML_triggered();
     void on_actionVisualise_selected_Network_triggered();
+    void on_actionConvert_folder_triggered();
 
 private:
     void draw_nn(QHash<int, neuron> neuron_hash);
