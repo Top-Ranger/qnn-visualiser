@@ -18,7 +18,6 @@
 
 #include "qnnvisualiser.h"
 #include "ui_qnnvisualiser.h"
-#include "createxml.h"
 
 #include <QDebug>
 #include <QMessageBox>
@@ -259,13 +258,6 @@ void QNNVisualiser::on_actionSave_Network_triggered()
                                  QString(tr("Network was successfully saved to %1")).arg(dialog.selectedFiles()[0]));
     }
 }
-
-void QNNVisualiser::on_actionCreate_XML_triggered()
-{
-    CreateXML window;
-    window.exec();
-}
-
 
 void QNNVisualiser::on_actionVisualise_selected_Network_triggered()
 {

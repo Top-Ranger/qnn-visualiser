@@ -58,14 +58,13 @@
      <x>0</x>
      <y>0</y>
      <width>408</width>
-     <height>21</height>
+     <height>18</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionCreate_XML"/>
     <addaction name="actionVisualise_selected_Network"/>
     <addaction name="actionSave_Network"/>
     <addaction name="actionConvert_folder"/>
@@ -89,7 +88,6 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionCreate_XML"/>
    <addaction name="actionSave_Network"/>
    <addaction name="actionConvert_folder"/>
   </widget>
@@ -118,11 +116,6 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
-   </property>
-  </action>
-  <action name="actionCreate_XML">
-   <property name="text">
-    <string>Create XML</string>
    </property>
   </action>
   <action name="actionVisualise_selected_Network">

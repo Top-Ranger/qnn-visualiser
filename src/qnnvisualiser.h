@@ -43,7 +43,6 @@ private slots:
     void on_actionAbout_triggered();
     void on_actionAbout_Qt_triggered();
     void on_actionSave_Network_triggered();
-    void on_actionCreate_XML_triggered();
     void on_actionVisualise_selected_Network_triggered();
     void on_actionConvert_folder_triggered();
 
