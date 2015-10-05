@@ -42,19 +42,19 @@ QNNVisualiser::~QNNVisualiser()
     delete ui;
 }
 
-bool QNNVisualiser::parse_file(QString file_name)
+bool QNNVisualiser::parseFile(QString file_name)
 {
     bool return_value = false;
 
     QFile file(file_name);
     if(!file.exists())
     {
-        show_error_message(QString(tr("File %1 does not exists")).arg(file_name));
+        showErrorMessage(QString(tr("File %1 does not exists")).arg(file_name));
         return false;
     }
     if(!file.open(QFile::ReadOnly))
     {
-        show_error_message(QString(tr("Can not open %1: %2")).arg(file_name).arg(file.errorString()));
+        showErrorMessage(QString(tr("Can not open %1: %2")).arg(file_name).arg(file.errorString()));
         return false;
     }
 
@@ -76,12 +76,12 @@ bool QNNVisualiser::parse_file(QString file_name)
                 QXmlStreamAttributes attribute = reader.attributes();
                 if(!attribute.hasAttribute("type"))
                 {
-                    show_error_message(tr("Not a valid file: No network type"));
+                    showErrorMessage(tr("Not a valid file: No network type"));
                     goto cleanup;
                 }
                 if(attribute.value("type").toString() != "GasNet" && attribute.value("type").toString() != "ModulatedSpikingNeuronsNetwork")
                 {
-                    show_error_message(tr("Unsupported network type: %1").arg(attribute.value("type").toString()));
+                    showErrorMessage(tr("Unsupported network type: %1").arg(attribute.value("type").toString()));
                     goto cleanup;
                 }
             }
@@ -91,7 +91,7 @@ bool QNNVisualiser::parse_file(QString file_name)
                 QXmlStreamAttributes attribute = reader.attributes();
                 if(!attribute.hasAttribute("key"))
                 {
-                    show_error_message(tr("Not a valid file: key is missing for double"));
+                    showErrorMessage(tr("Not a valid file: key is missing for double"));
                     goto cleanup;
                 }
                 if(attribute.value("key") == "pos_x")
@@ -112,7 +112,7 @@ bool QNNVisualiser::parse_file(QString file_name)
                 QXmlStreamAttributes attribute = reader.attributes();
                 if(!attribute.hasAttribute("key"))
                 {
-                    show_error_message(tr("Not a valid file: key is missing for double"));
+                    showErrorMessage(tr("Not a valid file: key is missing for double"));
                     goto cleanup;
                 }
                 if(attribute.value("key") == "gas_type")
@@ -131,7 +131,7 @@ bool QNNVisualiser::parse_file(QString file_name)
                 QXmlStreamAttributes attribute = reader.attributes();
                 if(!attribute.hasAttribute("id"))
                 {
-                    show_error_message(tr("Not a valid file: id is missing for neuron"));
+                    showErrorMessage(tr("Not a valid file: id is missing for neuron"));
                     goto cleanup;
                 }
                 current_neuron.id = attribute.value("id").toString().toInt();
@@ -160,12 +160,12 @@ bool QNNVisualiser::parse_file(QString file_name)
             {
                 if(current_neuron.id == -1)
                 {
-                    show_error_message(tr("ID of neuron not found"));
+                    showErrorMessage(tr("ID of neuron not found"));
                     goto cleanup;
                 }
                 if(neuron_hash.contains(current_neuron.id))
                 {
-                    show_error_message(QString(tr("Double id: %1")).arg(current_neuron.id));
+                    showErrorMessage(QString(tr("Double id: %1")).arg(current_neuron.id));
                     goto cleanup;
                 }
                 neuron_hash[current_neuron.id] = current_neuron;
@@ -180,17 +180,17 @@ bool QNNVisualiser::parse_file(QString file_name)
             break;
 
         case QXmlStreamReader::Invalid:
-            show_error_message(QString(tr("Error while reading: %1")).arg(reader.errorString()));
+            showErrorMessage(QString(tr("Error while reading: %1")).arg(reader.errorString()));
             goto cleanup;
 
         default:
-            show_error_message(QString(tr("Unknown token: %1")).arg(reader.tokenString()));
+            showErrorMessage(QString(tr("Unknown token: %1")).arg(reader.tokenString()));
             goto cleanup;
         }
     }
 
     return_value = true;
-    draw_nn(neuron_hash);
+    drawNN(neuron_hash);
 
 cleanup:
     file.close();
@@ -199,7 +199,7 @@ cleanup:
 
 void QNNVisualiser::on_pushButton_clicked()
 {
-    parse_file(ui->lineEdit->text());
+    parseFile(ui->lineEdit->text());
 }
 
 void QNNVisualiser::on_toolButton_clicked()
@@ -231,12 +231,12 @@ void QNNVisualiser::on_actionAbout_Qt_triggered()
     QApplication::aboutQt();
 }
 
-void QNNVisualiser::draw_nn(QHash<int, neuron> neuron_hash)
+void QNNVisualiser::drawNN(QHash<int, neuron> neuron_hash)
 {
-    ui->widget->set_neuron_hash(neuron_hash);
+    ui->widget->setNeuronHash(neuron_hash);
 }
 
-void QNNVisualiser::show_error_message(QString error)
+void QNNVisualiser::showErrorMessage(QString error)
 {
     qWarning() << "Error:" << error;
     QMessageBox::warning(this,
@@ -261,7 +261,7 @@ void QNNVisualiser::on_actionSave_Network_triggered()
 
 void QNNVisualiser::on_actionVisualise_selected_Network_triggered()
 {
-    parse_file(ui->lineEdit->text());
+    parseFile(ui->lineEdit->text());
 }
 
 void QNNVisualiser::on_actionConvert_folder_triggered()
@@ -276,7 +276,7 @@ void QNNVisualiser::on_actionConvert_folder_triggered()
         files = dir.entryList(filter);
         foreach (QString file_name, files)
         {
-            if(parse_file(dir.absoluteFilePath(file_name)))
+            if(parseFile(dir.absoluteFilePath(file_name)))
             {
                 QPixmap::grabWidget(ui->widget).save(dir.absoluteFilePath(file_name).replace(".xml", ".png"));
             }

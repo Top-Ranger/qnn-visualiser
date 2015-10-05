@@ -10,7 +10,7 @@ class NetworkRenderer : public QWidget
     Q_OBJECT
 public:
     explicit NetworkRenderer(QWidget *parent = 0);
-    void set_neuron_hash(QHash<int, neuron> neuron_hash);
+    void setNeuronHash(QHash<int, neuron> neuron_hash);
 
     QSize minimumSizeHint() const;
     QSize sizeHint() const;

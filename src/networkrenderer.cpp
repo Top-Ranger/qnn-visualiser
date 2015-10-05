@@ -21,7 +21,7 @@ NetworkRenderer::NetworkRenderer(QWidget *parent) :
     setAutoFillBackground(true);
 }
 
-void NetworkRenderer::set_neuron_hash(QHash<int, neuron> neuron_hash)
+void NetworkRenderer::setNeuronHash(QHash<int, neuron> neuron_hash)
 {
     _neuron_hash = neuron_hash;
     repaint();

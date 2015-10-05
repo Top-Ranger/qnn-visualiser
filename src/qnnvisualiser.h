@@ -34,9 +34,9 @@ class QNNVisualiser : public QMainWindow
 public:
     explicit QNNVisualiser(QWidget *parent = 0);
     ~QNNVisualiser();
+    bool parseFile(QString file_name);
 
 private slots:
-    bool parse_file(QString file_name);
     void on_pushButton_clicked();
     void on_toolButton_clicked();
     void on_actionQuit_triggered();
@@ -47,8 +47,8 @@ private slots:
     void on_actionConvert_folder_triggered();
 
 private:
-    void draw_nn(QHash<int, neuron> neuron_hash);
-    void show_error_message(QString error);
+    void drawNN(QHash<int, neuron> neuron_hash);
+    void showErrorMessage(QString error);
 
     Ui::QNNVisualiser *ui;
 };
