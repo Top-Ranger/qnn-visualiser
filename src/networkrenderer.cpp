@@ -56,7 +56,7 @@ void NetworkRenderer::paintEvent(QPaintEvent *event)
             painter.setPen(QPen(Qt::yellow));
             painter.setBrush(QBrush(Qt::yellow));
             double radius = size * _neuron_hash[i].gas_radius;
-            painter.drawEllipse(size*_neuron_hash[i].x - 0.5d*radius, size*_neuron_hash[i].y - 0.5d*radius, radius, radius);
+            painter.drawEllipse(size*_neuron_hash[i].x - 0.5*radius, size*_neuron_hash[i].y - 0.5*radius, radius, radius);
         }
     }
 
@@ -87,8 +87,8 @@ void NetworkRenderer::paintEvent(QPaintEvent *event)
                 double c = qSqrt(qPow(size*_neuron_hash[i].x - size*_neuron_hash[source].x, 2) + qPow(size*_neuron_hash[i].y - size*_neuron_hash[source].y, 2));
                 double n0_a = 1 / c * a;
                 double n0_b = 1 / c * b;
-                double x_arrow = n0_a * (c - 0.5d * NEURON_SIZE) + size*_neuron_hash[source].x;
-                double y_arrow = n0_b * (c - 0.5d * NEURON_SIZE) + size*_neuron_hash[source].y;
+                double x_arrow = n0_a * (c - 0.5 * NEURON_SIZE) + size*_neuron_hash[source].x;
+                double y_arrow = n0_b * (c - 0.5 * NEURON_SIZE) + size*_neuron_hash[source].y;
                 double arrow_vektor_a = ARROW_SIZE;
                 double arrow_vektor_b = (-1) * ARROW_SIZE * (n0_a / n0_b);
                 painter.drawLine(size*_neuron_hash[source].x, size*_neuron_hash[source].y, size*_neuron_hash[i].x, size*_neuron_hash[i].y);
@@ -101,8 +101,8 @@ void NetworkRenderer::paintEvent(QPaintEvent *event)
                 }
                 QPolygon arrowhead;
                 arrowhead << QPoint(x_arrow, y_arrow);
-                arrowhead << QPoint(n0_a * (c - 0.5d * NEURON_SIZE - ARROW_SIZE) + size*_neuron_hash[source].x + arrow_vektor_a, n0_b * (c - 0.5d * NEURON_SIZE - ARROW_SIZE) + size*_neuron_hash[source].y + arrow_vektor_b);
-                arrowhead << QPoint(n0_a * (c - 0.5d * NEURON_SIZE - ARROW_SIZE) + size*_neuron_hash[source].x - arrow_vektor_a, n0_b * (c - 0.5d * NEURON_SIZE - ARROW_SIZE) + size*_neuron_hash[source].y - arrow_vektor_b);
+                arrowhead << QPoint(n0_a * (c - 0.5 * NEURON_SIZE - ARROW_SIZE) + size*_neuron_hash[source].x + arrow_vektor_a, n0_b * (c - 0.5 * NEURON_SIZE - ARROW_SIZE) + size*_neuron_hash[source].y + arrow_vektor_b);
+                arrowhead << QPoint(n0_a * (c - 0.5 * NEURON_SIZE - ARROW_SIZE) + size*_neuron_hash[source].x - arrow_vektor_a, n0_b * (c - 0.5 * NEURON_SIZE - ARROW_SIZE) + size*_neuron_hash[source].y - arrow_vektor_b);
                 painter.drawPolygon(arrowhead);
             }
         }
@@ -114,9 +114,9 @@ void NetworkRenderer::paintEvent(QPaintEvent *event)
     {
         painter.setPen(QPen(Qt::black));
         painter.setBrush(QBrush(Qt::black));
-        painter.drawEllipse(size*_neuron_hash[i].x - 0.5d*NEURON_SIZE, size*_neuron_hash[i].y - 0.5d*NEURON_SIZE, NEURON_SIZE, NEURON_SIZE);
+        painter.drawEllipse(size*_neuron_hash[i].x - 0.5*NEURON_SIZE, size*_neuron_hash[i].y - 0.5*NEURON_SIZE, NEURON_SIZE, NEURON_SIZE);
         painter.setPen(QPen(Qt::white));
-        QRect rect(size*_neuron_hash[i].x - 0.5d * NEURON_SIZE, size*_neuron_hash[i].y - 0.5d * NEURON_SIZE, size*_neuron_hash[i].x + 0.5d * NEURON_SIZE, size*_neuron_hash[i].y + 0.5d * NEURON_SIZE);
-        painter.drawText(size*_neuron_hash[i].x - 0.5d * NEURON_SIZE, size*_neuron_hash[i].y - 0.5d * NEURON_SIZE, NEURON_SIZE, NEURON_SIZE, (int) Qt::AlignHCenter, QString("%1").arg(_neuron_hash[i].id), &rect);
+        QRect rect(size*_neuron_hash[i].x - 0.5 * NEURON_SIZE, size*_neuron_hash[i].y - 0.5 * NEURON_SIZE, size*_neuron_hash[i].x + 0.5 * NEURON_SIZE, size*_neuron_hash[i].y + 0.5 * NEURON_SIZE);
+        painter.drawText(size*_neuron_hash[i].x - 0.5 * NEURON_SIZE, size*_neuron_hash[i].y - 0.5 * NEURON_SIZE, NEURON_SIZE, NEURON_SIZE, (int) Qt::AlignHCenter, QString("%1").arg(_neuron_hash[i].id), &rect);
     }
 }
