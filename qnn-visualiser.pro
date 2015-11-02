@@ -25,3 +25,6 @@ FORMS    += src/qnnvisualiser.ui
 
 OTHER_FILES += \
     LICENSE.GPL3
+
+DISTFILES += \
+    README

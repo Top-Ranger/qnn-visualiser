@@ -1,0 +1,15 @@
+qnn-visualiser
+   by Marcus Soll
+
+-------------------------------------------------------------------------------
+
+qnn-visualiser is a tool to visualise the structure of certain neural networks
+created with QNeuralNetwork. It takes the xml files as input. An option is
+available co convert all xml files in a folder.
+
+Currently supported networks:
+ * GasNet
+ * ModulatedSpikingNeuronsNetwork
+
+qnn-visualiser is licensed under the terms of the GNU General Public License
+Version 3 or (at your option) any later version.
